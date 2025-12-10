@@ -71,7 +71,13 @@ Technical Walkthrough Video: TODO: Add Link
 
 # 4. Evaluation
 
-After training the model, I evaluated how well the model predicts the desired segmentations in the standard manner of evaluation of the DiCE score, as shown in the following tables. This was done specifically using the eval.py script included in the repository. Furthermore, the analysis was done both on the level of each segmentation class, as well as on average, to allow for better interpretation.
+After training the model, I evaluated how well the model predicts the desired segmentations in the standard manner of evaluation of the DiCE score, as shown in the following tables. This was done specifically using the eval.py script included in the repository. Furthermore, the analysis was done both on the level of each segmentation class, as well as on average, to allow for better interpretation. Consider the mathematical equation of the score to be 
+
+$$
+\mathrm{Dice}(A, B) = \frac{2|A \cap B|}{|A| + |B| + \epsilon}
+$$
+
+for two possible segmentation labels $A$ and $B$, with $\epsilon$ small to avoid division by 0. 
 
 ## 4.1 Base Model Analysis
 
@@ -109,10 +115,16 @@ Additionally, depicted in the same format as above, we notice that the model has
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/d8096469-5bad-41c0-8f1a-95f41fdd1faa" />
 <img width="500" alt="image" src="https://github.com/user-attachments/assets/8dd781ec-2a11-4872-a2f2-88ec57bd9f42" />
 
-Additionally, we have that the model trained with the following metrics shown, 
 
+Additionally, we have that the model trained with the following metrics shown. Notice that it may appear as though the model is overfitting, the later studies show that this is not truly so, and the model is simply training well, also evidenced by the impressive statistics shown in the beginning.
 
+<p align="center">
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/72d987e4-9a56-4714-9b7b-84b465e38025" />
+</p>
 
+## 4.1 Ablation Studies
+
+As mentioned, the nnUNet framework utilizes a large amount of data augmentation techniques, one of those being the perturbation of the colors of the image in the training methods. Consider the following table demonstrating the DiCE sccores achieved when training without such techniques, specifically, observe that the scores do not drop that much, if at all. We again see that the endoneurium and epineurium segmentation classes are performing slightly better than the perineurium, however, this too is consistent with our base model. 
 
 ### nnUNet - Trained without Color Augmentation (Ablation)
 
@@ -124,6 +136,14 @@ Additionally, we have that the model trained with the following metrics shown,
 | **Epineurium**        | 0.9705    | 0.0157   | 0.9313  | 0.9885  |
 | **Mean Dice (No Bg)** | 0.9616    | 0.0089   | 0.9452  | 0.9755  |
 | **Mean Dice (All)**   | 0.9674    | 0.0077   | 0.9546  | 0.9789  |
+
+Looking closer at some sample images, consider the side-by-side of the segmentations produced by this trained model (left) and those produced by the original (right). 
+
+<p align="center">
+  <img src="002-color-model.png" width="500">
+  <img src="002-first-model" width="500">
+</p>
+
 
 ### nnUNet - Trained with Further Downsampled Data (x8) (Ablation)
 
