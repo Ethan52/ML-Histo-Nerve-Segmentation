@@ -69,10 +69,20 @@ Demo Video: TODO: Add Link
 
 Technical Walkthrough Video: TODO: Add Link
 
-4. Evaluation
+# 4. Evaluation
 4.1 Quantitative Metrics (Validation Set)
 
-Baseline fold-0 model
+nnUNet Model 
+
+| Structure           | Mean Dice | Std Dev  | Min     | Max     |
+|--------------------|-----------|----------|---------|---------|
+| **Background**      | 0.9850    | 0.0089   | 0.9639  | 0.9974  |
+| **Endoneurium**     | 0.9870    | 0.0059   | 0.9662  | 0.9940  |
+| **Perineurium**     | 0.9245    | 0.0240   | 0.8769  | 0.9576  |
+| **Epineurium**      | 0.9709    | 0.0158   | 0.9312  | 0.9880  |
+| **Mean Dice (No Bg)** | 0.9608 | 0.0107   | 0.9433  | 0.9754  |
+| **Mean Dice (All)**   | 0.9668 | 0.0093   | 0.9510  | 0.9790  |
+
 
 Class	Dice	IoU
 Endoneurium	TODO	TODO
