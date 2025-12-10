@@ -70,7 +70,10 @@ Demo Video: TODO: Add Link
 Technical Walkthrough Video: TODO: Add Link
 
 # 4. Evaluation
-## 4.1 Quantitative Metrics (Testing Set)
+
+After training the model, I evaluated how well the model predicts the desired segmentations in the standard manner of evaluation of the DiCE score, as shown in the following tables. This was done specifically using the eval.py script included in the repository. Furthermore, the analysis was done both on the level of each segmentation class, as well as on average, to allow for better interpretation.
+
+## 4.1 Base Model Analysis
 
 ### nnUNet Base Model
 
@@ -82,6 +85,33 @@ Technical Walkthrough Video: TODO: Add Link
 | **Epineurium**      | 0.9709    | 0.0158   | 0.9312  | 0.9880  |
 | **Mean Dice (No Bg)** | 0.9608 | 0.0107   | 0.9433  | 0.9754  |
 | **Mean Dice (All)**   | 0.9668 | 0.0093   | 0.9510  | 0.9790  |
+
+Observe that, at least quantitatively, the model appears to be doing very well at predicting the regions of interest desired to be segmented, with a fairly high mean DiCE, and relatively small standard deviation, indicating little variation throughout the predictions, reaffirmed by the min-max intervals also shown above. Notice that the Background, Endoneurium, and Epineurium segmentation classes appear to have been learned slightly better than the Perineurium class. Perhaps to be better informed by the qualitative (image) analysis, however, at a preliminary standpoint, the perineurium is known to be harder to concretely identify, especially defining the boundary between the endoneurium and itself, as well as the epinuerium and itself. Additionally, the perineurium can be much thinner than are the other regions desired to be segmented. Consider also that the standard deviation of the perineurium DiCE scores also indicated the most variation out of all the classes. 
+
+Consider the following overlays depicting the model's predicted segmentation on the left, and the ground truth segmentation on the right, with endoneurium painted red, perineurium blue, and epineurium purple.
+
+<p align="center">
+  <img src="002-base-model.png" width="500">
+  <img src="002-gt.png" width="500">
+</p>
+
+At first glance, as is suggested by the quantitative analysis, the segmentations do not look extremely different, however a deeper dive does reveal more about them. For instance, the image below zooms in to reveal some "holes" in the segmentation of the endoneurium, which should not occur. A possible reason for this is the stark difference in color sometimes seen within the endoneurium, as during the histology process, the dead axons naturally begin to separate from their bundles, revealing some gaps in the endoneurium. However, the ground truth segmentation does not reflect this as something desired to be captured, and thus, this might necessitate a fix in the future. 
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/e077fae7-23e2-4d55-a0ff-a913549ca697" />
+
+Moreover, consider the following side-by-side of the model-predicted segmentation (left) and the original histology slide itself (right) zoomed in on the same lower left region of the previous image. Here we see the difficulty in distinguishing the endoneurium from the perineurium for the model. What is slightly interesting is that the model does not segment what I believe to be the entire region of doubt one singular segmentation class but rather "expresses" its uncertainty in its hedging between both classes. 
+<p align="center">
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/9d794ff7-ae1a-4d4f-b79f-1ae930230b04" />
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/27696619-fa16-43fa-8f75-b24d5e37a0b6" />
+</p>
+
+Additionally, depicted in the same format as above, we notice that the model has difficulty recognizing the presence of entire other nerve structures (perineurium enclosing endoneurium) in very close proximity to the larger perineurium structure. This is likely due to the proximity to the larger perinuerium structure coupled with the similarity in colors, however, this may also be a pitfall of the labeled data, since there is some subtlety in when and in what cases, small nerve structures such as these are treated as deserving of their own perineurium and endoneurium, or if they should simply be lumped together with the epineurium.
+
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/d8096469-5bad-41c0-8f1a-95f41fdd1faa" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/8dd781ec-2a11-4872-a2f2-88ec57bd9f42" />
+
+Additionally, we have that the model trained with the following metrics shown, 
+
+
 
 
 ### nnUNet - Trained without Color Augmentation (Ablation)
@@ -119,15 +149,14 @@ Technical Walkthrough Video: TODO: Add Link
 
 ## 4.2 Qualitative Examples
 
-Below are representative overlays for each of Ground Truth, Baseline Prediction, and No-Color-Aug Prediction:
+### nnUNet Base Model
 
-Good case
+Consider the 
 
-TODO: 
-
-Typical case
-
-TODO: insert image or link
+<p align="center">
+  <img src="002-base-model.png" width="500">
+  <img src="002-gt.png" width="500">
+</p>
 
 Failure / challenging case
 
