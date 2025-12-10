@@ -70,9 +70,9 @@ Demo Video: TODO: Add Link
 Technical Walkthrough Video: TODO: Add Link
 
 # 4. Evaluation
-4.1 Quantitative Metrics (Validation Set)
+## 4.1 Quantitative Metrics (Testing Set)
 
-nnUNet Model 
+### nnUNet Base Model
 
 | Structure           | Mean Dice | Std Dev  | Min     | Max     |
 |--------------------|-----------|----------|---------|---------|
@@ -84,36 +84,46 @@ nnUNet Model
 | **Mean Dice (All)**   | 0.9668 | 0.0093   | 0.9510  | 0.9790  |
 
 
-Class	Dice	IoU
-Endoneurium	TODO	TODO
-Perineurium	TODO	TODO
-Epineurium	TODO	TODO
-Mean Dice	≈ 0.89 (observed)	TODO
+### nnUNet - Trained without Color Augmentation (Ablation)
 
-Ablation: No Color Augmentation
+| Structure             | Mean Dice | Std Dev  | Min     | Max     |
+|----------------------|-----------|----------|---------|---------|
+| **Background**        | 0.9846    | 0.0080   | 0.9669  | 0.9971  |
+| **Endoneurium**       | 0.9861    | 0.0093   | 0.9489  | 0.9930  |
+| **Perineurium**       | 0.9283    | 0.0201   | 0.8812  | 0.9623  |
+| **Epineurium**        | 0.9705    | 0.0157   | 0.9313  | 0.9885  |
+| **Mean Dice (No Bg)** | 0.9616    | 0.0089   | 0.9452  | 0.9755  |
+| **Mean Dice (All)**   | 0.9674    | 0.0077   | 0.9546  | 0.9789  |
 
-Class	Dice	IoU
-Endoneurium	TODO	TODO
-Perineurium	TODO	TODO
-Epineurium	TODO	TODO
-Mean Dice	TODO	TODO
-Δ Mean Dice	TODO (usually small)	
+### nnUNet - Trained with Further Downsampled Data (x8) (Ablation)
 
-Postprocessing Improvement (Morphological Cleaning)
+| Structure             | Mean Dice | Std Dev  | Min     | Max     |
+|----------------------|-----------|----------|---------|---------|
+| **Background**        | 0.9710    | 0.0196   | 0.9037  | 0.9965  |
+| **Endoneurium**       | 0.9465    | 0.0674   | 0.7060  | 0.9929  |
+| **Perineurium**       | 0.8778    | 0.0481   | 0.7329  | 0.9585  |
+| **Epineurium**        | 0.9440    | 0.0309   | 0.8680  | 0.9807  |
+| **Mean Dice (No Bg)** | 0.9228    | 0.0411   | 0.7851  | 0.9617  |
+| **Mean Dice (All)**   | 0.9348    | 0.0350   | 0.8148  | 0.9693  |
 
-Model	Mean Dice Before	Mean Dice After	Δ
-Baseline	TODO	TODO	+TODO
-NoColorAug	TODO	TODO	+TODO
+### nnUNet - Trained with Early Stopping
 
-(You can paste results from metrics_comparison.csv here.)
+| Structure             | Mean Dice | Std Dev  | Min     | Max     |
+|----------------------|-----------|----------|---------|---------|
+| **Background**        | 0.9758    | 0.0097   | 0.9535  | 0.9943  |
+| **Endoneurium**       | 0.9672    | 0.0161   | 0.9166  | 0.9839  |
+| **Perineurium**       | 0.8225    | 0.0544   | 0.6841  | 0.9226  |
+| **Epineurium**        | 0.9491    | 0.0197   | 0.8977  | 0.9758  |
+| **Mean Dice (No Bg)** | 0.9129    | 0.0236   | 0.8649  | 0.9532  |
+| **Mean Dice (All)**   | 0.9286    | 0.0184   | 0.8930  | 0.9592  |
 
-4.2 Qualitative Examples
+## 4.2 Qualitative Examples
 
-Below are representative overlays comparing Ground Truth, Baseline Prediction, and No-Color-Aug Prediction:
+Below are representative overlays for each of Ground Truth, Baseline Prediction, and No-Color-Aug Prediction:
 
 Good case
 
-TODO: insert image or link
+TODO: 
 
 Typical case
 
