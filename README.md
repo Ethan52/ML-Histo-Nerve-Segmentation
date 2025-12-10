@@ -137,13 +137,20 @@ As mentioned, the nnUNet framework utilizes a large amount of data augmentation 
 | **Mean Dice (No Bg)** | 0.9616    | 0.0089   | 0.9452  | 0.9755  |
 | **Mean Dice (All)**   | 0.9674    | 0.0077   | 0.9546  | 0.9789  |
 
-Looking closer at some sample images, consider the side-by-side of the segmentations produced by this trained model (left) and those produced by the original (right). 
+Looking closer at some sample images, consider the side-by-side of the segmentations produced by this trained model (left) and those produced by the original (right). We see pretty much the same effects as before, with the model struggling in some admittedly problematic areas, however, on the whole they look fairly similar. The only interesting factor is that there is not much of the holes in segmentation of the endoneurium as noted with the original model, which might make sense considering the perturbation of colors (or lack thereof) is what is being tested. 
 
 <p align="center">
   <img src="002-color-model.png" width="500">
-  <img src="002-first-model" width="500">
+  <img src="002-base-model.png" width="500">
 </p>
 
+What would make this model even more desireable is perhaps a speedup in the training, considering there are less augmentations taking place, however, we do not see this truly, as depicted by the very similar training metrics output.
+
+<p align="center">
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/da6ad9a1-96c5-4917-811a-ef94a842d334" />
+</p>    
+
+Additionally, we also tested whether 
 
 ### nnUNet - Trained with Further Downsampled Data (x8) (Ablation)
 
