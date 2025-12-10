@@ -1,4 +1,4 @@
-# ML-Histo-Nerve-Segmentation - Don't grade yet, even if gives 6% penalty will resubmit tonight/tomorrow, very sorry
+# ML-Histo-Nerve-Segmentation - Don't grade yet, even if gives 6% penalty will resubmit tonight/tomorrow
 
 README.md
 H&E Nerve Histology Segmentation with nnUNet
