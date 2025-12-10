@@ -1,6 +1,6 @@
 # ML-Histo-Nerve-Segmentation
 README.md
-H&E Nerve Histology Segmentation with nnU-Net
+H&E Nerve Histology Segmentation with nnUNet
 
 Final Project – Applied Machine Learning
 
