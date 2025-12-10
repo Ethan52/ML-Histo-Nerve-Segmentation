@@ -61,13 +61,9 @@ nnUNetv2_predict -i ./inference_inputs \
 Apply Postprocessing (optional)
 python postprocess_clean.py predictions predictions_clean
 
-3. Video Links
+# 3. Video Links
 
-(Add your YouTube or Google Drive links)
 
-Demo Video: TODO: Add Link
-
-Technical Walkthrough Video: TODO: Add Link
 
 # 4. Evaluation
 
@@ -150,7 +146,7 @@ What would make this model even more desireable is perhaps a speedup in the trai
 <img width="400" alt="image" src="https://github.com/user-attachments/assets/da6ad9a1-96c5-4917-811a-ef94a842d334" />
 </p>    
 
-Additionally, we also tested whether 
+Additionally, I also tested, as an ablation study, whether further downsampling the data had an impact on the performance of the model, as this would have allowed, I thought, better computational efficiency. Considering the reported DiCE scores however, we find that this trained model slightly underperformed in most of the segmentation classes, however not significanty. We again notice the perineurium segmentation class providing the most difficulty, perhaps further exacerbated by the loss of some resolution in training, causing it to be even harder to distinguish a small boundary. 
 
 ### nnUNet - Trained with Further Downsampled Data (x8) (Ablation)
 
@@ -163,6 +159,13 @@ Additionally, we also tested whether
 | **Mean Dice (No Bg)** | 0.9228    | 0.0411   | 0.7851  | 0.9617  |
 | **Mean Dice (All)**   | 0.9348    | 0.0350   | 0.8148  | 0.9693  |
 
+Consider also the comparison of segmentation outputs as compared between each of the models. From a wide view, it is evident that there are issues with the segmentation classes, specifically noting the holes apparent in epineurium class, as well as considerable spilling over of the perineurium segmentation class into the endoneurium and epineurium. On the whole, it seems that the downsampling by a further factor of 2 was certainly felt by the model and was thus not able to perform as well as other model configurations have done.    
+
+<p align="center">
+  <img src="013-down-model.png" width="500">
+  <img src="013-base-model.png" width="500">
+</p>
+
 ### nnUNet - Trained with Early Stopping
 
 | Structure             | Mean Dice | Std Dev  | Min     | Max     |
@@ -173,33 +176,6 @@ Additionally, we also tested whether
 | **Epineurium**        | 0.9491    | 0.0197   | 0.8977  | 0.9758  |
 | **Mean Dice (No Bg)** | 0.9129    | 0.0236   | 0.8649  | 0.9532  |
 | **Mean Dice (All)**   | 0.9286    | 0.0184   | 0.8930  | 0.9592  |
-
-## 4.2 Qualitative Examples
-
-### nnUNet Base Model
-
-Consider the 
-
-<p align="center">
-  <img src="002-base-model.png" width="500">
-  <img src="002-gt.png" width="500">
-</p>
-
-Failure / challenging case
-
-TODO: insert image or link (e.g., ruptured perineurium)
-
-(Optional: include masks before/after postprocessing.)
-
-4.3 Ablation Study Summary
-
-You can write this exactly or modify:
-
-We evaluated the effect of removing color augmentation during training.
-Surprisingly, the removal of stain-based augmentations produced minimal change in performance (Δ ≈ TODO Dice).
-This suggests that our dataset exhibits consistent H&E staining, making color augmentation less impactful.
-
-The postprocessing step (hole filling + morphological closing/opening) consistently improved perineurium and epineurium segmentation.
 
 5. Individual Contributions
 
