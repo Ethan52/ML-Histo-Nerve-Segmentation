@@ -1,6 +1,10 @@
-# ML-Histo-Nerve-Segmentation - Don't grade yet, even if gives 6% penalty will resubmit tonight/tomorrow
+# ML-Histo-Nerve-Segmentation
 
 Machine Learning pipeline to create automated segementations of H&E stained nerve histology images. 
+
+**Consider that GitHub does not allow for the upload of very large files, so use this supplementary Box link to access the rest of my repository!**
+
+https://duke.box.com/s/qxqvpa2lwg87ccaataceis2z6l19y6h4
 
 # 0. Brief Term-list
 Consider that throughout this project we will be using some light biological terminology. Consider the following:
