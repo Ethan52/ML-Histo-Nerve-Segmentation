@@ -94,8 +94,8 @@ Observe that, at least quantitatively, the model appears to be doing very well a
 Consider the following overlays depicting the model's predicted segmentation on the left, and the ground truth segmentation on the right, with endoneurium painted red, perineurium blue, and epineurium purple.
 
 <p align="center">
-  <img src="002-base-model.png" width="500">
-  <img src="002-gt.png" width="500">
+  <img src="data/002-base-model.png" width="500">
+  <img src="data/002-gt.png" width="500">
 </p>
 
 At first glance, as is suggested by the quantitative analysis, the segmentations do not look extremely different, however a deeper dive does reveal more about them. For instance, the image below zooms in to reveal some "holes" in the segmentation of the endoneurium, which should not occur. A possible reason for this is the stark difference in color sometimes seen within the endoneurium, as during the histology process, the dead axons naturally begin to separate from their bundles, revealing some gaps in the endoneurium. However, the ground truth segmentation does not reflect this as something desired to be captured, and thus, this might necessitate a fix in the future. 
@@ -141,8 +141,8 @@ As mentioned, the nnUNet framework utilizes a large amount of data augmentation 
 Looking closer at some sample images, consider the side-by-side of the segmentations produced by this trained model (left) and those produced by the original (right). We see pretty much the same effects as before, with the model struggling in some admittedly problematic areas, however, on the whole they look fairly similar. The only interesting factor is that there is not much of the holes in segmentation of the endoneurium as noted with the original model, which might make sense considering the perturbation of colors (or lack thereof) is what is being tested. 
 
 <p align="center">
-  <img src="002-color-model.png" width="500">
-  <img src="002-base-model.png" width="500">
+  <img src="data/002-color-model.png" width="500">
+  <img src="data/002-base-model.png" width="500">
 </p>
 
 What would make this model even more desireable is perhaps a speedup in the training, considering there are less augmentations taking place, however, we do not see this truly, as depicted by the very similar training metrics output.
@@ -167,8 +167,8 @@ Additionally, I also tested, as an ablation study, whether further downsampling 
 Consider also the comparison of segmentation outputs as compared between each of the models. From a wide view, it is evident that there are issues with the segmentation classes, specifically noting the holes apparent in epineurium class, as well as considerable spilling over of the perineurium segmentation class into the endoneurium and epineurium. On the whole, it seems that the downsampling by a further factor of 2 was certainly felt by the model and was thus not able to perform as well as other model configurations have done.    
 
 <p align="center">
-  <img src="013-down-model.png" width="500">
-  <img src="013-base-model.png" width="500">
+  <img src="data/013-down-model.png" width="500">
+  <img src="data/013-base-model.png" width="500">
 </p>
 
 Zooming into another prediction by this model (left), we notice the same spilling over effect as above, again with the perineurium segmentation class in regions solidly belonging to endoneurium. With this image specifically, it appears as though this might be explained by the edges of the endoneurium having a bit of a darker hue, thus appearing somewhat similar to the perineurium. However, comparing this to the prediction of the original model on this same image (right), we notice that it is possible for the model to achieve a better, more coherent segmentation. 
@@ -201,8 +201,8 @@ Below are depicted the results of the model with this training algorithm. As is 
 | **Mean Dice (All)**   | 0.9286    | 0.0184   | 0.8930  | 0.9592  |
 
 <p align="center">
-  <img src="013-reg-model.png" width="500">
-  <img src="013-base-model.png" width="500">
+  <img src="data/013-reg-model.png" width="500">
+  <img src="data/013-base-model.png" width="500">
 </p>
 
 Consider that there aren't many blatant differences between the segmentation predictions of the early-stopping model (left) and that of the original model (right). Though, again, looking deeper, we do find that the segmentation of the perineurium especially is very coarse, certainly not as smooth and delineated as in the original model's predictions. Consider that this is fairly well-represented by the image below of the model's prediction on a different image. Thus, while the early-stopping mechanism does often prevent overfitting for many models, even for such a modest patience as 50, it appears as though the model does continue to learn far into the 1000 epochs that it trains for. More to this point, it appears as though the learning of the boundaries between segmentations, might come later in the learning process.  
