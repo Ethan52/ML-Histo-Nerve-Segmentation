@@ -123,7 +123,7 @@ Additionally, we have that the model trained with the following metrics shown. N
     <img width="400" alt="image" src="https://github.com/user-attachments/assets/72d987e4-9a56-4714-9b7b-84b465e38025" />
 </p>
 
-## 4.1 Ablation Studies
+## 4.2 Ablation Studies
 
 As mentioned, the nnUNet framework utilizes a large amount of data augmentation techniques, one of those being the perturbation of the colors of the image in the training methods. Consider the following table demonstrating the DiCE sccores achieved when training without such techniques, specifically, observe that the scores do not drop that much, if at all. We again see that the endoneurium and epineurium segmentation classes are performing slightly better than the perineurium, however, this too is consistent with our base model. 
 
@@ -211,7 +211,7 @@ Consider that there aren't many blatant differences between the segmentation pre
     <img width="500" alt="image" src="https://github.com/user-attachments/assets/dae76b33-8954-4ef4-8ad5-4979bb0b8ce3" />
 </p>
 
-## 4.2 Out-of-Sample Testing
+## 4.3 Out-of-Sample Testing
 
 Since most histology data that will be used for the purpose of data collection and measurements in the true research process are relatively "clean," and easy to segment the dataset used for the training and testing of this model did not include any extraneous cases, however, they certainly do exist. In many slides, at the point of imaging, fascicles within the nerve being imaged have been broken, or, especially frequently, the perineurium will have ruptured. Thus, out of curiosity to see how the model performs with these such edge cases, specifically those of ruptured perinueria, I ran the model to predict segmentations for these images. One example is depicted below, the left depicting the segmentation overlay, and the right, the raw image:
 
