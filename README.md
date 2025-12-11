@@ -222,3 +222,8 @@ Since most histology data that will be used for the purpose of data collection a
 </p>
 
 Consider that in these cases, it is even ambiguous to experts what an accurate segmentation might look like, and thus, interpreting the results of the model, specifically in the area for which the perineurium is disconnected, we see that on the right, the perineurium is segemented (accurately) until the end, however, on the left, the perineurium segementation arbitrarily morphs into the epineurium's. Speculatively, this could be because the proximity of the perinuerium might have been growing too far from the segmentation of the endoneurium, which the model might have learned to associate with increased loss. Observing the other cases for which this ruptured perineurium problem occurs, the model again truncates the segmentation of the perineurium after some distance moving further from the endoneurium as well.  
+
+<p align="center">
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/771ac5fc-05ce-4c20-87a2-2ce06f3e859f" />
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/80907f74-0124-44c0-a619-cc6f5f4ad9a2" />
+</p>
