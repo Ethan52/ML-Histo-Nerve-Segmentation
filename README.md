@@ -1,9 +1,6 @@
 # ML-Histo-Nerve-Segmentation - Don't grade yet, even if gives 6% penalty will resubmit tonight/tomorrow
 
-README.md
-H&E Nerve Histology Segmentation with nnUNet
-
-Final Project – Applied Machine Learning
+Machine Learning pipeline to create automated segementations of H&E stained nerve histology images. 
 
 # 0. Brief Term-list
 Consider that throughout this project we will be using some light biological terminology. Consider the following:
@@ -17,50 +14,22 @@ Consider that throughout this project we will be using some light biological ter
 Consider that many cutting-edge research topics in the field of medicine currently are exploring the nervous system and specifically nerve morphology, itself a fast-growing field given relatively novel data collection methods. That being said, especially considering the growth in available data, it becomes important to be able to efficiently process these data, that is, glean the desired information as quickly and accurately as possible. This project attempts to accomplish this, specifically for H&E-stained histology images of cross sections of nerves in the carotid artery region of the human body. The project provides a deep learning pipeline for preprocessing the data, segmenting the cross section into the endoneurium, perineurium, and epineurium regions, as well as provides an error analysis of the predictions.
 
 # 2. Quick Start
-Prerequisites
 
-Python 3.10
+Consider that the best and most thorough methods for running this project are contained in the SETUP.md file, however, I will reproduce the highlights here:
 
-CUDA-enabled PyTorch (if running training)
+1. Follow the directions at the nnUNet github repository to download and install nnUNet (https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/installation_instructions.md). This includes:
+- Create a conda environment
+- Install PyTorch
+- Install nnUNet
+- Create environment variables for nnUNet folders
 
-nnU-Net v2 installed
+2. Download the dataset from the Box, and place it into your "nnUNet_raw" folder
+   
+3. Download the model configuration and place it into your "nnUNet_results" folder
 
-Access to GPU cluster (recommended)
+4. Test the model on the data to generate predicted segmentations, and visualize! 
 
-Environment Setup
-conda create -n nnunet python=3.10 -y
-conda activate nnunet
-pip install nnunetv2
-
-Set nnU-Net environment variables
-export nnUNet_raw=/path/to/nnUNet_raw
-export nnUNet_preprocessed=/path/to/nnUNet_preprocessed
-export nnUNet_results=/path/to/nnUNet_results
-
-Preprocess Dataset
-
-Your dataset must live in:
-
-$nnUNet_raw/Dataset920_HE/
-    imagesTr/
-    labelsTr/
-    dataset.json
-
-
-Then run:
-
-nnUNetv2_plan_and_preprocess -d 920 -p nnUNetPlans
-
-Train (Fold 0)
-nnUNetv2_train 920 2d 0 --deterministic
-
-Run Inference
-nnUNetv2_predict -i ./inference_inputs \
-                 -o ./predictions \
-                 -d 920 -c 2d -f 0
-
-Apply Postprocessing (optional)
-python postprocess_clean.py predictions predictions_clean
+(again see SETUP.md for slightly more details, entire process is still fairly quick!)
 
 # 3. Video Links
 
