@@ -167,7 +167,19 @@ Consider also the comparison of segmentation outputs as compared between each of
   <img src="013-base-model.png" width="500">
 </p>
 
+Zooming into another prediction by this model (left), we notice the same spilling over effect as above, again with the perineurium segmentation class in regions solidly belonging to endoneurium. With this image specifically, it appears as though this might be explained by the edges of the endoneurium having a bit of a darker hue, thus appearing somewhat similar to the perineurium. However, comparing this to the prediction of the original model on this same image (right), we notice that it is possible for the model to achieve a better, more coherent segmentation. 
+
+<p align="center">
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/a2fe5dba-923c-436c-b9f0-a092bcb9ecf0" />
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/f7842232-161c-465b-8517-e244114d6c13" />
+</p>
+
+
 ### nnUNet - Trained with Early Stopping
+
+Finally, consider that the nnUNet model's training algorithm does include some regularization techniques such as weight decay, however, the training is initially set to continue for 1000 epochs with no stopping in betweeen. Thus, in order to determine if this was the best possible practice for the algorithm, I adapted my own training function that incorporated early stopping. Originally, I was planning to test against a number of patience factors, and thus, began with a very mild patience factor 50, that is stopping training only after validation loss hadn't improved in 50 epochs. 
+
+Below are depicted the results of the model with this training algorithm. As is shown, at least quantitatively, it appears as though this model with early-stopping performed on par to the other models. However, to better truly gauge this, we may again qualitatively analyze the actual segmentation predictions.  
 
 | Structure             | Mean Dice | Std Dev  | Min     | Max     |
 |----------------------|-----------|----------|---------|---------|
@@ -178,22 +190,13 @@ Consider also the comparison of segmentation outputs as compared between each of
 | **Mean Dice (No Bg)** | 0.9129    | 0.0236   | 0.8649  | 0.9532  |
 | **Mean Dice (All)**   | 0.9286    | 0.0184   | 0.8930  | 0.9592  |
 
+
+
+<p align="center">
+  <img src="013-reg-model.png" width="500">
+  <img src="013-base-model.png" width="500">
+</p>
+
 5. Individual Contributions
 
-(Modify if group project; otherwise say “Individual project”.)
-
-Ethan Fazal
-
-Data preprocessing and annotation (manual labeling in QuPath)
-
-Adapted nnU-Net v2 to histology dataset
-
-Implemented custom trainer removing color augmentations
-
-Ran training, inference, and evaluation on A5000 cluster
-
-Constructed ablation study and postprocessing pipeline
-
-Created demo & technical walkthrough videos
-
-Authored full report and README
+Individual Project
