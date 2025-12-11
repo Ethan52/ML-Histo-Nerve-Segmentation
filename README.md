@@ -99,7 +99,10 @@ Consider the following overlays depicting the model's predicted segmentation on 
 </p>
 
 At first glance, as is suggested by the quantitative analysis, the segmentations do not look extremely different, however a deeper dive does reveal more about them. For instance, the image below zooms in to reveal some "holes" in the segmentation of the endoneurium, which should not occur. A possible reason for this is the stark difference in color sometimes seen within the endoneurium, as during the histology process, the dead axons naturally begin to separate from their bundles, revealing some gaps in the endoneurium. However, the ground truth segmentation does not reflect this as something desired to be captured, and thus, this might necessitate a fix in the future. 
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/e077fae7-23e2-4d55-a0ff-a913549ca697" />
+
+<p align="center">
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/e077fae7-23e2-4d55-a0ff-a913549ca697" />
+</p>
 
 Moreover, consider the following side-by-side of the model-predicted segmentation (left) and the original histology slide itself (right) zoomed in on the same lower left region of the previous image. Here we see the difficulty in distinguishing the endoneurium from the perineurium for the model. What is slightly interesting is that the model does not segment what I believe to be the entire region of doubt one singular segmentation class but rather "expresses" its uncertainty in its hedging between both classes. 
 <p align="center">
@@ -109,14 +112,15 @@ Moreover, consider the following side-by-side of the model-predicted segmentatio
 
 Additionally, depicted in the same format as above, we notice that the model has difficulty recognizing the presence of entire other nerve structures (perineurium enclosing endoneurium) in very close proximity to the larger perineurium structure. This is likely due to the proximity to the larger perinuerium structure coupled with the similarity in colors, however, this may also be a pitfall of the labeled data, since there is some subtlety in when and in what cases, small nerve structures such as these are treated as deserving of their own perineurium and endoneurium, or if they should simply be lumped together with the epineurium.
 
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/d8096469-5bad-41c0-8f1a-95f41fdd1faa" />
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/8dd781ec-2a11-4872-a2f2-88ec57bd9f42" />
-
+<p align="center">
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/d8096469-5bad-41c0-8f1a-95f41fdd1faa" />
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/8dd781ec-2a11-4872-a2f2-88ec57bd9f42" />
+</p>
 
 Additionally, we have that the model trained with the following metrics shown. Notice that it may appear as though the model is overfitting, the later studies show that this is not truly so, and the model is simply training well, also evidenced by the impressive statistics shown in the beginning.
 
 <p align="center">
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/72d987e4-9a56-4714-9b7b-84b465e38025" />
+    <img width="400" alt="image" src="https://github.com/user-attachments/assets/72d987e4-9a56-4714-9b7b-84b465e38025" />
 </p>
 
 ## 4.1 Ablation Studies
@@ -174,8 +178,14 @@ Zooming into another prediction by this model (left), we notice the same spillin
     <img width="500" alt="image" src="https://github.com/user-attachments/assets/f7842232-161c-465b-8517-e244114d6c13" />
 </p>
 
+Further of note here is the slightly different traininng curves than other trained models. Consider the training loss curves for this model (left) as compared to those for the original trained model discussed (right). Notice specifically the growing gap between the training loss and validation loss curves, a telltale sign of overfitting. Thus, it appears as though the further downsampling might have led to the destruction of more discriminative features that the model could have learned. With too much downsampling, the model likely learned too many shortcuts within the dataset and thus began to overfit. Therefore, this is likely the cause of the poorer performance when testing the model on images outside of its training set. 
 
-### nnUNet - Trained with Early Stopping
+<p align="center">
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/582f1057-e8ba-43cc-bbd4-d9090cf75875" />
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/7b5ec38c-6433-440b-8824-9ef33bf652e3" />
+</p>
+
+### nnUNet - Trained with Early Stopping (Ablation)
 
 Finally, consider that the nnUNet model's training algorithm does include some regularization techniques such as weight decay, however, the training is initially set to continue for 1000 epochs with no stopping in betweeen. Thus, in order to determine if this was the best possible practice for the algorithm, I adapted my own training function that incorporated early stopping. Originally, I was planning to test against a number of patience factors, and thus, began with a very mild patience factor 50, that is stopping training only after validation loss hadn't improved in 50 epochs. 
 
@@ -190,11 +200,15 @@ Below are depicted the results of the model with this training algorithm. As is 
 | **Mean Dice (No Bg)** | 0.9129    | 0.0236   | 0.8649  | 0.9532  |
 | **Mean Dice (All)**   | 0.9286    | 0.0184   | 0.8930  | 0.9592  |
 
-
-
 <p align="center">
   <img src="013-reg-model.png" width="500">
   <img src="013-base-model.png" width="500">
+</p>
+
+Consider that there aren't many blatant differences between the segmentation predictions of the early-stopping model (left) and that of the original model (right). Though, again, looking deeper, we do find that the segmentation of the perineurium especially is very coarse, certainly not as smooth and delineated as in the original model's predictions. Consider that this is fairly well-represented by the image below of the model's prediction on a different image. Thus, while the early-stopping mechanism does often prevent overfitting for many models, even for such a modest patience as 50, it appears as though the model does continue to learn far into the 1000 epochs that it trains for. More to this point, it appears as though the learning of the boundaries between segmentations, might come later in the learning process.  
+
+<p align="center">
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/dae76b33-8954-4ef4-8ad5-4979bb0b8ce3" />
 </p>
 
 5. Individual Contributions
