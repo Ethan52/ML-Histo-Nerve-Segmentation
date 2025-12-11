@@ -196,3 +196,14 @@ Consider that in these cases, it is even ambiguous to experts what an accurate s
     <img width="500" alt="image" src="https://github.com/user-attachments/assets/771ac5fc-05ce-4c20-87a2-2ce06f3e859f" />
     <img width="500" alt="image" src="https://github.com/user-attachments/assets/80907f74-0124-44c0-a619-cc6f5f4ad9a2" />
 </p>
+
+## 4.4 Analysis of Inference Time
+
+Finally, to evaluate the computational efficiency of the model, consider the training metrics graphs given above, specifically the plots reproduced below, that demonstrate the time per epoch in the training process. Observe the left is the original model's time per epoch, and the right has the time per epoch of the model trained with downsampled data. This is not necessarily to show that the downsampled data might provide shorter epoch times, but rather just to show the consistency in epoch time across the other ablation study models with a representative. The other models did also have an average epoch time of about 23s per epoch. Specifically, though not significantly, the original model had the quickest epoch time of about 22.43s. 
+
+<p align="center">
+   <img width="500" alt="image" src="https://github.com/user-attachments/assets/000b95d9-5311-44d5-a3f9-34e1c667f904" />
+   <img width="500" alt="image" src="https://github.com/user-attachments/assets/9ca050eb-9512-4970-b446-1bca189379df" />
+</p>
+
+Additionally I considered the inference times for each of the models, and these too were fairly consistent across the board, with the original model having specifically a mean inference time of 32.98 512x512 image patches per second, which translates to about a minute or two per image, with GPU. I also tried testing with further downsampled images, which did speed up the inference time a bit as less image patches per image means a quicker inference time, though it was only about a 23s speed up. Thus, it was decided that the loss of some resolution and the not very large speedup meant the original testing configuration was best. Especially for research purposes, this is completely fine and integrable into workflows, especially considering that it is an insanely large speedup from hand-segmentation, which is maybe 10-15 **minutes** per image. 
