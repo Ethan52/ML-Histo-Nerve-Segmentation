@@ -211,6 +211,14 @@ Consider that there aren't many blatant differences between the segmentation pre
     <img width="500" alt="image" src="https://github.com/user-attachments/assets/dae76b33-8954-4ef4-8ad5-4979bb0b8ce3" />
 </p>
 
-5. Individual Contributions
+## 4.2 Out-of-Sample Testing
 
-Individual Project
+Since most histology data that will be used for the purpose of data collection and measurements in the true research process are relatively "clean," and easy to segment the dataset used for the training and testing of this model did not include any extraneous cases, however, they certainly do exist. In many slides, at the point of imaging, fascicles within the nerve being imaged have been broken, or, especially frequently, the perineurium will have ruptured. Thus, out of curiosity to see how the model performs with these such edge cases, specifically those of ruptured perinueria, I ran the model to predict segmentations for these images. One example is depicted below, the left depicting the segmentation overlay, and the right, the raw image:
+
+<p align="center">
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/fe37511e-7210-4b14-9985-a4fcbb914e7c" />
+    <img width="500" alt="image" src="https://github.com/user-attachments/assets/2dad195e-e5cc-4736-99f6-2261573cc2a1" />
+
+</p>
+
+Consider that in these cases, it is even ambiguous to experts what an accurate segmentation might look like, and thus, interpreting the results of the model, specifically in the area for which the perineurium is disconnected, we see that on the right, the perineurium is segemented (accurately) until the end, however, on the left, the perineurium segementation arbitrarily morphs into the epineurium's. Speculatively, this could be because the proximity of the perinuerium might have been growing too far from the segmentation of the endoneurium, which the model might have learned to associate with increased loss. Observing the other cases for which this ruptured perineurium problem occurs, the model again truncates the segmentation of the perineurium after some distance moving further from the endoneurium as well.  
