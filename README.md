@@ -37,7 +37,9 @@ Consider that the best and most thorough methods for running this project are co
 
 # 3. Video Links
 
+Demo Video: https://duke.box.com/s/r8htkv89w5nc9fgxxzxfohfa8l7igyd2
 
+Technical Walkthrough: 
 
 # 4. Evaluation
 
